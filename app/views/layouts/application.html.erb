@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Profile App</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <meta charset="UTF-8">
+</head>
+
+<body>
+<div class="container-fluid">
+
+	<div class="current-user-header">
+		<% if @current_user%>
+			<% if @current_user.user_type == "student" || @current_user.user_type == "outcomes"%>
+			
+				<a href="/"><img class="nav-bar-picture" src="<%= asset_path 'sm-logo.png' %>">Connect You</a> <a href="/users/<%=@current_user.id%>"><img class="user-small-pic" src="<%=@current_user.image_src%>">Hello <%= @current_user.f_name%></a>
+				<a href="/jobs">Job Board</a>
+			<% else %>
+				<a href="/"><img class="nav-bar-picture" src="<%= asset_path 'sm-logo.png' %>">Connect You</a><img class="nav-bar-picture" src="<%=@current_user.image_src%>"><a href="/users/<%=@current_user.id%>">Hello <%=@current_user.org_name%></a></a>
+				<a href="/skills">Student Board</a>
+			<% end %>
+		<% else %>
+		<div> 
+			<a href="/"><img class="nav-bar-picture" src="<%= asset_path 'sm-logo.png' %>">Connect You</a>
+			<a id="login" href="/login">Log in</a>
+		</div>
+		<% end %>
+	<% if @current_user%>
+		<a id="logout" href="/logout">Log Out</a>
+	<% end %>
+</div>
+
+
+<%= yield %>
+
+</div>
+
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</body>
+</html>
